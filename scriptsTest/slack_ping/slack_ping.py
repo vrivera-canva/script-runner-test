@@ -16,7 +16,7 @@ from slack_sdk import WebClient
 from slack_sdk.errors import SlackApiError
 
 CHANNEL = "C0BEQP2RDED"
-TOKEN = os.environ["SLACK_BOT_TOKEN"]
+TOKEN = os.environ["SLACK_TOKEN"]
 
 
 def post(client: WebClient, text: str) -> None:
