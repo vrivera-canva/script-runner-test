@@ -5,7 +5,7 @@ slack_ping.py — Script Runner smoke test.
 Posts a "starting" message to a Slack channel, sleeps 20 seconds
 (exercises the worker heartbeat), then posts a "done" message.
 
-Required env var: SLACK_BOT_TOKEN (injected by the worker from the
+Required env var: SLACK_TOKEN (injected by the worker from the
 script-runner-slack Platy secret).
 """
 
@@ -29,6 +29,8 @@ def post(client: WebClient, text: str) -> None:
 
 
 def main() -> None:
+    print("Sleeping 20 seconds...")
+    time.sleep(20)
     client = WebClient(token=TOKEN)
 
     post(client, ":rocket: Script Runner ping — starting (will complete in 20 s)")
