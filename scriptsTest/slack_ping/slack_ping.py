@@ -17,9 +17,12 @@ from slack_sdk.errors import SlackApiError
 
 CHANNEL = "C0BEQP2RDED"
 TOKEN = os.environ["SLACK_TOKEN"]
-
+DRY_RUN = os.environ.get('SCRIPT_DRY_RUN', 'true').lower() == 'true'
 
 def post(client: WebClient, text: str) -> None:
+    if DRY_RUN:
+        print(f"[DRY RUN] Would post: {text}")
+        return
     try:
         client.chat_postMessage(channel=CHANNEL, text=text)
         print(f"Posted: {text}")
