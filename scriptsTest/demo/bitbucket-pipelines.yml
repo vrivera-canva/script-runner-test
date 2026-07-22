@@ -1,0 +1,11 @@
+image: python:3
+pipelines:
+  default:
+    - step:
+        name: Run AtlassianCatalogue
+        script:
+          - pip install asyncio
+          - pip install aiohttp
+          - pip install lxml
+          - pip install datetime
+          - python jiracatalogue.py
