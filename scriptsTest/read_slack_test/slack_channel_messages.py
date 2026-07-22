@@ -278,18 +278,17 @@ def resolve_username(token: str, user_id: str) -> tuple[str, bool]:
 
 def write_structured_output(output: dict[str, Any]) -> None:
     """Write JSON to Script Runner's configured result file or the job log."""
+    serialized_output = json.dumps(output, indent=2)
     output_file = os.environ.get("SCRIPT_OUTPUT_FILE")
     if output_file:
         with open(output_file, "w", encoding="utf-8") as destination:
-            json.dump(output, destination, indent=2)
+            destination.write(serialized_output)
             destination.write("\n")
         logger.info("Structured output written to %s.", output_file)
-        return
+    else:
+        logger.info("SCRIPT_OUTPUT_FILE is not set; no output file was written.")
 
-    logger.info(
-        "SCRIPT_OUTPUT_FILE is not set; structured output follows:\n%s",
-        json.dumps(output, indent=2),
-    )
+    logger.info("Final structured output:\n%s", serialized_output)
 
 
 def parse_message_count() -> int:
